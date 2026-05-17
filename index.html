@@ -61,7 +61,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 .tp{display:none}.tp.active{display:block}
 
 /* ── KPI Grid ── */
-.kpi-wrap{position:sticky;top:52px;z-index:150;background:var(--bg);padding:10px 16px 6px;margin:0 -16px;border-bottom:1px solid var(--border);box-shadow:var(--shadow);transition:background .25s}
+.kpi-wrap{background:var(--bg);padding:10px 0 6px;border-bottom:1px solid var(--border);transition:background .25s}
+@media(min-width:640px){.kpi-wrap{position:sticky;z-index:150;box-shadow:var(--shadow);padding:10px 16px 6px;margin:0 -16px;}}
 .kpi-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 @media(min-width:640px){.kpi-grid{grid-template-columns:repeat(4,1fr)}}
 .kpi{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden;transition:background .25s}
@@ -232,7 +233,7 @@ function checkPw(){
   </div>
   <span class="row-chip" id="rowCount">— rows</span>
   <span class="upd-chip">&#128337; Today's data as of 17 May 2026, 05:17 PM</span>
-  <span class="upd-chip" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.35);color:#818cf8;">&#128260; Last run: 17 May, 06:26 PM</span>
+  <span class="upd-chip" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.35);color:#818cf8;">&#128260; Last run: 17 May, 06:28 PM</span>
 </div>
 
 <!-- Tab Nav -->
@@ -332,7 +333,7 @@ const ERR_LBL = {
   user_cancelled:'Cancelled'
 };
 const PG_COLORS = ['#009BD9','#17A34A','#E88400','#8B5CF6','#EC4899','#14B8A6'];
-const DAY_FRAC  = 0.7681;   // fraction of today elapsed at generation time
+const DAY_FRAC  = 0.7694;   // fraction of today elapsed at generation time
 const MIN_DATE  = '2026-04-28'; // earliest date in dataset
 
 /* STATE */
@@ -922,7 +923,8 @@ function renderPlayground() {
    BOOT
 ═══════════════════════════════════════════════ */
 function updateKpiTop() {
-  const fbar   = document.querySelector('.fbar');
+  if (window.innerWidth < 640) return;
+  const fbar    = document.querySelector('.fbar');
   const kpiWrap = document.querySelector('.kpi-wrap');
   if (fbar && kpiWrap) kpiWrap.style.top = (52 + fbar.offsetHeight) + 'px';
 }
