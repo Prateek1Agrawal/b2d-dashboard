@@ -231,7 +231,7 @@ function checkPw(){
   </div>
   <span class="row-chip" id="rowCount">— rows</span>
   <span class="upd-chip">&#128337; Today's data as of 17 May 2026, 05:17 PM</span>
-  <span class="upd-chip" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.35);color:#818cf8;">&#128260; Last run: 17 May, 06:17 PM</span>
+  <span class="upd-chip" style="background:rgba(99,102,241,.1);border-color:rgba(99,102,241,.35);color:#818cf8;">&#128260; Last run: 17 May, 06:23 PM</span>
 </div>
 
 <!-- Tab Nav -->
@@ -329,7 +329,7 @@ const ERR_LBL = {
   user_cancelled:'Cancelled'
 };
 const PG_COLORS = ['#009BD9','#17A34A','#E88400','#8B5CF6','#EC4899','#14B8A6'];
-const DAY_FRAC  = 0.7618;   // fraction of today elapsed at generation time
+const DAY_FRAC  = 0.766;   // fraction of today elapsed at generation time
 const MIN_DATE  = '2026-04-28'; // earliest date in dataset
 
 /* STATE */
@@ -483,6 +483,14 @@ function applyFilters() {
 /* ═══════════════════════════════════════════════
    TAB 1 — OVERVIEW
 ═══════════════════════════════════════════════ */
+function toggleCard(id) {
+  const body = document.getElementById(id);
+  const arrow = document.getElementById(id + '_arrow');
+  const collapsed = body.style.display === 'none';
+  body.style.display = collapsed ? '' : 'none';
+  arrow.textContent = collapsed ? '▲' : '▼';
+}
+
 function renderOverview() {
   const bk = sumF(filteredData,'booked');
   const dl = sumF(filteredData,'delivered');
@@ -598,10 +606,11 @@ function buildCompCard(p) {
     ? `<div style="font-size:11px;color:var(--muted);margin-top:6px;">📐 ${p.pLbl} numbers scaled ×${sc.toFixed(4)} (${(sc*100).toFixed(1)}% of day elapsed)</div>`
     : '';
 
+  const cardId = 'ccard_' + p.title.replace(/\W/g,'_');
   return `<div class="card">
-    <div class="card-hd">
+    <div class="card-hd" onclick="toggleCard('${cardId}')" style="cursor:pointer;user-select:none;">
       <div>
-        <div class="card-title">${p.title}</div>
+        <div class="card-title">${p.title} <span id="${cardId}_arrow" style="font-size:12px;opacity:.6;">▲</span></div>
         <div class="card-note">${p.note}</div>
       </div>
       <div class="cperiod">
@@ -609,6 +618,7 @@ function buildCompCard(p) {
         <b>${p.pLbl}:</b> ${p.pDesc}
       </div>
     </div>
+    <div id="${cardId}">
     ${scaleNote}
     <div class="tscroll">
     <table class="dtbl">
@@ -620,6 +630,7 @@ function buildCompCard(p) {
       </tr></thead>
       <tbody>${rows}${tot}</tbody>
     </table>
+    </div>
     </div>
   </div>`;
 }
