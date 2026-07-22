@@ -2843,7 +2843,7 @@ function applyTrendsFilters(){
 function toggleMo(btn){btn.classList.toggle('active');applyTrendsFilters();}
 // mode: 'all'=all days; 'week'=week avg rows, no days; 'month'=month avg rows only
 function setAllDays(mode){
-  var showDays=(mode==='all'), showWeeks=(mode==='all'||mode==='week');
+  var showDays=(mode==='all'), showWeeks=(mode==='week');
   document.querySelectorAll('#tab-trends tr.trend-row').forEach(function(r){r.style.display=showDays?'':'none';});
   document.querySelectorAll('#tab-trends tr.wk-hdr-row').forEach(function(r){
     r.style.display=showWeeks?'':'none';
