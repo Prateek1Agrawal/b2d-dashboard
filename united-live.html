@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="60">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>United India — Live Status</title>
+<style>
+:root{--bg:#0d1117;--bg2:#161b22;--tx:#c9d1d9;--tx2:#8b949e;--bdr:#30363d;--up:#3fb950;--down:#ff4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--tx);padding:24px;}
+.card{background:var(--bg2);border:1px solid var(--bdr);border-radius:12px;padding:24px;max-width:560px;margin:0 auto;}
+h1{font-size:18px;margin-bottom:4px;}
+.status{font-size:28px;font-weight:700;margin:16px 0 4px;}
+.status.up{color:var(--up);}
+.status.down{color:var(--down);}
+.detail{color:var(--tx2);font-size:13px;margin-bottom:16px;}
+.counter{font-size:15px;color:var(--tx2);margin-bottom:20px;}
+.counter b{color:var(--tx);font-variant-numeric:tabular-nums;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th,td{text-align:left;padding:4px 8px;border-bottom:1px solid var(--bdr);}
+th{color:var(--tx2);font-weight:600;}
+.meta{color:var(--tx2);font-size:11px;margin-top:16px;}
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>United India — Live Status</h1>
+  <div class="status down">TRAFFIC STOPPED</div>
+  <div class="detail">0 requests in the last 15 minutes — likely circuit-broken / pulled from rotation.</div>
+  <div class="counter">Down for <b id="elapsed">—</b></div>
+  <table>
+    <tr><th>IST time</th><th>Total reqs</th><th>Failed</th><th>QSR%</th></tr>
+    <tr><td>20:59:16</td><td>0</td><td>0</td><td>—</td></tr>
+  </table>
+  <div class="meta">Page auto-refreshes every 60s &middot; data refreshed every ~10min &middot; source: Kibana (proxy for QSR, not exact dashboard QSR%)</div>
+</div>
+<script>
+const incidentStart = new Date("2026-08-03T01:50:00+00:00");
+function tick() {
+  const now = new Date();
+  let diff = Math.max(0, Math.floor((now - incidentStart) / 1000));
+  const hh = String(Math.floor(diff / 3600)).padStart(2, '0');
+  const mm = String(Math.floor((diff % 3600) / 60)).padStart(2, '0');
+  const ss = String(diff % 60).padStart(2, '0');
+  document.getElementById('elapsed').textContent = `${hh}:${mm}:${ss}`;
+}
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>
