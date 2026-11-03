@@ -3352,14 +3352,12 @@ Tariff Rate not found for combination of RTO Cod<span class="expander"> ▼</spa
 </div>
 
 <div id="tab-rscrub" class="content" style="display:none">
-<div style="font-size:11px;color:var(--tx2);background:var(--bg2,transparent);border:1px dashed var(--bdr);border-radius:6px;padding:4px 10px;margin-bottom:10px;display:inline-block">⏳ This tab is from the last <b>scrub</b> refresh: 21:57 IST, 03 Nov</div>
 <div style="font-size:11px;color:var(--tx2);margin-bottom:12px">Renewal-scrub cohort (nightly Policy Bulk Scrub for last year's customers — see campaign_service.proposal_bulk_scrub_ct) — <b>Quote%</b> over time, same day-on-day/plan-split structure as the main QSR Trends tab, against the scrub base instead of live traffic. Each COMP/OD/TP cell shows <b>raw VRNs scrubbed (Quote%)</b> — e.g. "302 (73.5%)" — and the Hits column on the right is the total scrubbed across all 3 plans that day.</div>
 
 <p style="color:var(--tx2);padding:20px">No renewal-scrub trend data available.</p>
 </div>
 
 <div id="tab-rscrubherr" class="content" style="display:none">
-<div style="font-size:11px;color:var(--tx2);background:var(--bg2,transparent);border:1px dashed var(--bdr);border-radius:6px;padding:4px 10px;margin-bottom:10px;display:inline-block">⏳ This tab is from the last <b>scrub</b> refresh: 21:57 IST, 03 Nov</div>
 <div style="font-size:11px;color:var(--tx2);margin-bottom:12px">Cross-insurer root-cause summary &mdash; the REAL reason behind each failure, parsed from the insurer's own response body rather than a generic/misleading exception label (e.g. "TATA AIG v2 4W Renewal Fuel Exception" turned out to be 80% "Email ID is Not present in Modify API" and 12% an unrelated failure in our own middleware &mdash; neither about fuel). <b>QSR</b> next to each insurer is that insurer/vehicle's actual incumbent-verified quote rate for whichever window is selected below. <b>QSR uptick if fixed</b> = how many percentage points that QSR would rise if this ONE reason were eliminated entirely (count &divide; total scrub base for the same window) &mdash; a ceiling estimate, holding everything else constant, not a forecast. Follows the Today/Yesterday/All Days toggle below.</div>
 <div id="rscrub-rootcause-wrap" style="margin-bottom:24px"><p class="hmap-empty">Loading…</p></div>
 <div style="font-size:11px;color:var(--tx2);margin-bottom:12px">Day-on-day count of renewal-scrub VRNs that <b>failed to get quoted</b> that night (an EVENT count — a VRN that fails one night and self-heals the next is counted once, for that night — same style as the live QSR Errors tab). Quote stage only. Click through to see real error categories (from motor-quote-integration Kibana logs) and the actual logs, each with a "Download Excel" button. A VRN whose scrub never reached the quote-fetch step that night (no quote_id assigned — owned by campaign-service's own external pipeline) shows up honestly as its own category rather than being hidden.</div>
@@ -3370,7 +3368,6 @@ Tariff Rate not found for combination of RTO Cod<span class="expander"> ▼</spa
 </div>
 
 <div id="tab-rscrubrca" class="content" style="display:none">
-<div style="font-size:11px;color:var(--tx2);background:var(--bg2,transparent);border:1px dashed var(--bdr);border-radius:6px;padding:4px 10px;margin-bottom:10px;display:inline-block">⏳ This tab is from the last <b>scrub</b> refresh: 21:57 IST, 03 Nov</div>
 <div style="font-size:11px;color:var(--tx2);margin-bottom:12px">Every real failure reason (same extraction as the Renewal Scrubbing QSR Errors tab) classified into <b>Paytm-side</b> (fixable in our own code/config) vs <b>Insurer-side</b> (their infra or an underwriting decision) vs <b>Unclassified</b> (no Kibana log survived, or a reason not yet triaged). <b>QSR Uptick if Fixed</b> = how many percentage points that insurer/vehicle's QSR would rise if this ONE reason were eliminated entirely for the days shown (count &divide; scrub base for the SAME window, summed across every insurer/vehicle combo this reason affects) &mdash; a ceiling estimate, holding everything else constant, not a forecast; it follows the Today/Yesterday/All Days toggle below. Paytm-side rows list the owning component and an exact suggested change where one can be stated with confidence &mdash; this is a triage aid from live-log investigation, not a filed ticket; verify with the owning team before shipping any change.</div>
 <div class="mo-btn-group" style="margin-bottom:14px">
   <button class="mo-btn active" id="rscrubrca-win-all" onclick="switchRScrubRcaWindow('all')">All Days</button>
